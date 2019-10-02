@@ -41,15 +41,15 @@ impl Game {
         }
     }
 
-    pub fn key_pressed(&self, key: Key) {
+    pub fn key_pressed(&mut self, key: Key) {
         if self.game_over { return; }
 
         let dir = match key {
-            Up => Some(Direction::Up),
-            Down => Some(Direction::Down),
-            Left => Some(Direction::Left),
-            Right => Some(Direction::Right),
-            _ => None
+            Key::Up    => Some(Direction::Up),
+            Key::Down  => Some(Direction::Down),
+            Key::Left  => Some(Direction::Left),
+            Key::Right => Some(Direction::Right),
+            _          => None
         };
 
         if dir.unwrap() == self.snake.head_direction().opposite() {

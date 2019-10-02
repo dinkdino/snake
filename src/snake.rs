@@ -47,7 +47,7 @@ impl Snake {
     }
 
     pub fn draw(&self, con: &Context, g: &mut G2d) {
-        for block in self.body {
+        for block in &self.body {
             draw_block(SNAKE_COLOR, block.x, block.y, con, g);
         }
     }
@@ -66,10 +66,10 @@ impl Snake {
         let (last_x, last_y) = self.head_position();
 
         let new_block = match self.direction {
-            Up    => Block { x: last_x,     y: last_y - 1 },
-            Down  => Block { x: last_x,     y: last_y + 1 },
-            Left  => Block { x: last_x - 1, y: last_y },
-            Right => Block { x: last_x + 1, y: last_y }
+           Direction::Up    => Block { x: last_x,     y: last_y - 1 },
+           Direction::Down  => Block { x: last_x,     y: last_y + 1 },
+           Direction::Left  => Block { x: last_x - 1, y: last_y },
+           Direction::Right => Block { x: last_x + 1, y: last_y }
         };
 
         self.body.push_front(new_block);
@@ -90,10 +90,10 @@ impl Snake {
         };
 
         match moving_dir {
-            Up    => (head_x,     head_y - 1),
-            Down  => (head_x,     head_y + 1),
-            Left  => (head_x - 1, head_y    ),
-            Right => (head_x + 1, head_y    )
+            Direction::Up    => (head_x,     head_y - 1),
+            Direction::Down  => (head_x,     head_y + 1),
+            Direction::Left  => (head_x - 1, head_y    ),
+            Direction::Right => (head_x + 1, head_y    )
         }
     }
 
@@ -105,7 +105,7 @@ impl Snake {
     pub fn overlap_tail(&self, x: i32, y: i32) -> bool {
         let mut ch = 0;
         
-        for block in self.body {
+        for block in &self.body {
             if x == block.x && y == block.y {
                 return true;
             }

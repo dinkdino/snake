@@ -18,7 +18,7 @@ fn main() {
         [to_coord_u32(width), to_coord_u32(height)])
         .exit_on_esc(true).build().unwrap();
 
-    let game: Game = Game::new(width, height);
+    let mut game: Game = Game::new(width, height);
 
     while let Some(event) = window.next() {
         if let Some(Button::Keyboard(key)) = event.press_args() {
